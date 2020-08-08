@@ -12,3 +12,7 @@ scrape_cabinet(url)
 \description{
 Scrape Wiki page for cabinet data and produce a tidy data.table for analysis
 }
+\examples{
+url <- xml2::read_html('https://es.wikipedia.org/wiki/Anexo:Gabinete_de_Benito_Ju\%C3\%A1rez')
+
+}

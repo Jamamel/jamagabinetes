@@ -22,4 +22,6 @@ Imports:
     dplyr,
     rvest,
     stringr,
-    purrr
+    purrr,
+    glue,
+    xml2
