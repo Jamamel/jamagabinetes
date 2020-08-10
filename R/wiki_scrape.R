@@ -64,7 +64,9 @@ scrape_cabinet <- function(url){
     .[, 'note' := note %>%
         stringr::str_replace('\\)','') %>%
         stringr::str_trim()] %>%
-    .[, c('timeframe', 'entry') := NULL]
+    .[, c('timeframe', 'entry') := NULL] %>%
+    .[, 'appt_interval' := lubridate::interval(start, end)] %>%
+    .[, 'appt_duration' := appt_interval %>% lubridate::as.duration()]
 
 }
 
