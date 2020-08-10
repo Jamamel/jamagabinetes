@@ -2,13 +2,6 @@
 #'
 #' @import data.table
 #' @import magrittr
-#' @importFrom dplyr case_when
-#' @importFrom stringr str_replace str_replace_all
-#' @importFrom lubridate as_date
-#' @importFrom rvest html_node html_nodes
-#' @importFrom purrr map
-#' @importFrom glue glue
-#' @importFrom xml2 read_html
 "_PACKAGE"
 
 # The following block is used by usethis to automatically manage

@@ -5,11 +5,12 @@
 #'
 #' @examples
 #' url <- xml2::read_html('https://es.wikipedia.org/wiki/Anexo:Gabinete_de_Benito_Ju%C3%A1rez')
+#' parsed_dt <- scrape_cabinet(url)
 #'
 #' @export
 scrape_cabinet <- function(url){
 
-  x <- url %>%
+  url %>%
     rvest::html_node('body') %>%
     rvest::html_nodes('li') %>%
     purrr::keep(~ {.x %>%
@@ -52,6 +53,17 @@ scrape_cabinet <- function(url){
     .[, 'start' := ifelse(stringr::str_detect(start, '\\d{4}'),
                           start,
                           glue::glue('{start} de {.$end_year}')) %>%
-        date_trans()]
+        date_trans()] %>%
+    .[, 'start_year' := lubridate::year(start)] %>%
+    .[, 'start_month' := lubridate::month(start)] %>%
+    .[, c('name', 'note') := entry %>%
+        stringr::str_extract('.*(?=\\(\\d+)') %>%
+        data.table::tstrsplit(.,
+                              split = '\\(')] %>%
+    .[, 'note' := note %>%
+        stringr::str_replace('\\)','') %>%
+        stringr::str_trim()] %>%
+    .[, c('timeframe', 'entry') := NULL]
 
 }
+
