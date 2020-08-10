@@ -8,5 +8,5 @@
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
 ## usethis namespace: end
-globalVariables(c('start', 'end', 'entry', 'timeframe', '.'))
+globalVariables(c('start', 'end', 'entry', 'timeframe', '.', 'note'))
 NULL
