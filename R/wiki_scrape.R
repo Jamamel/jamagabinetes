@@ -18,10 +18,11 @@ scrape_cabinet <- function(url){
         length} == 2) %>%
     purrr::map(~ .x %>%
                  rvest::html_children() %>%
-                 rvest::html_children() %>%
                  rvest::html_text() %>%
                  data.table::data.table(ministry = .[1],
-                                        entry = .[-1]) %>%
+                                        entry = .[2] %>%
+                                          stringr::str_split('\n') %>%
+                                          purrr::flatten_chr()) %>%
                  .[, '.' := NULL]) %>%
     data.table::rbindlist() %>%
     .[, 'entry' := stringr::str_replace_all(entry, '\\}', '')] %>%
